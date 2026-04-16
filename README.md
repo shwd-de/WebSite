@@ -2,9 +2,7 @@
 
 Offizielle Website von **SHWD – Silvia Hofmann Web Design** aus Kleve.
 
-Dieses Repository enthält die neue Website von SHWD als ruhigen, modernen und verständlichen Webauftritt für **Handwerk**, **kleine Firmen** und **Vereine** in Kleve und Umgebung.
-
-**Wichtig:** Dieses Projekt steht **in keinem Zusammenhang mit der SASD-GmbH**.
+Dieses Repository enthält die neue Website von SHWD als ruhigen, modernen und verständlichen Webauftritt für **Handwerk**, **Firmen** und **Vereine** in Kleve und Umgebung.
 
 ## Ziel des Projekts
 

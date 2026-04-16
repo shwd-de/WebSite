@@ -47,6 +47,20 @@ header {
   display: flex; align-items: center; justify-content: space-between; gap: 24px;
   padding: 24px 28px;
 }
+
+.site-notice {
+  padding: 8px 28px;
+  text-align: center;
+  font-size: 0.86rem;
+  color: var(--muted);
+  background: rgba(23, 74, 90, 0.035);
+  border-bottom: 1px solid rgba(230, 221, 211, 0.75);
+  letter-spacing: 0.01em;
+}
+
+.site-notice strong {
+  font-weight: 600;
+}
 .logo {
   font-family: Montserrat, Inter, system-ui, sans-serif;
   font-weight: 800; font-size: 2rem; letter-spacing: 0.02em; color: var(--primary);
