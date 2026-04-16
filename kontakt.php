@@ -49,7 +49,6 @@ $message = $statusMap[$status] ?? null;
             <a class="nav-cta" href="kontakt.php">Kontakt</a>
           </div>
         </header>
-        <div class="site-notice"><strong>Hinweis:</strong> Wir übernehmen zur Zeit keine Aufträge.</div>
         <main>
           <section class="page-hero small">
             <div class="eyebrow">Kontakt</div>

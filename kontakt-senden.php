@@ -2,6 +2,7 @@
 declare(strict_types=1);
 
 require __DIR__ . '/app/bootstrap.php';
+require __DIR__ . '/app/mailer.php';
 
 if (session_status() !== PHP_SESSION_ACTIVE) {
     session_start();
@@ -65,18 +66,21 @@ $bodyLines = [
     'Zeitpunkt: ' . date('Y-m-d H:i:s'),
     'IP: ' . ($_SERVER['REMOTE_ADDR'] ?? 'unbekannt'),
 ];
-$body = implode("\n", $bodyLines);
+$body = implode("
+", $bodyLines);
 
-$headers = [];
-$headers[] = 'From: ' . mb_encode_mimeheader($fromName, 'UTF-8') . ' <' . $from . '>';
-$headers[] = 'Reply-To: ' . $name . ' <' . $email . '>';
-$headers[] = 'Content-Type: text/plain; charset=UTF-8';
-$headers[] = 'X-Mailer: PHP/' . phpversion();
-
-$sent = @mail($to, mb_encode_mimeheader($mailSubject, 'UTF-8'), $body, implode("\r\n", $headers));
-
-if (!$sent) {
-    error_log('SHWD Kontaktformular: mail() konnte die Nachricht nicht versenden.');
+try {
+    shwd_send_mail([
+        'to_email' => $to,
+        'from_email' => $from,
+        'from_name' => $fromName,
+        'reply_email' => $email,
+        'reply_name' => $name,
+        'subject' => $mailSubject,
+        'body' => $body,
+    ]);
+} catch (Throwable $exception) {
+    error_log('SHWD Kontaktformular: ' . $exception->getMessage());
     redirect_to('error');
 }
 
