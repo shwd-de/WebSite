@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SHWD – Wartungsseite</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #f7f3ee;
+      --surface: rgba(255, 253, 250, 0.95);
+      --surface-soft: #f2ece5;
+      --text: #24323a;
+      --muted: #5d6a71;
+      --primary: #174a5a;
+      --primary-dark: #113946;
+      --accent: #c86a2c;
+      --accent-dark: #a65521;
+      --border: #e6ddd3;
+      --shadow: 0 20px 55px rgba(20, 38, 46, 0.08);
+      --radius: 28px;
+      --container: 1180px;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top right, rgba(200, 106, 44, 0.08), transparent 25%),
+        linear-gradient(180deg, #fbf8f4 0%, var(--bg) 100%);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 28px 16px;
+      line-height: 1.6;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .shell {
+      width: min(var(--container), 100%);
+      background: var(--surface);
+      border: 1px solid rgba(230, 221, 211, 0.92);
+      border-radius: 32px;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      backdrop-filter: blur(10px);
+    }
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      padding: 22px 28px;
+      background: rgba(255, 253, 250, 0.92);
+      border-bottom: 1px solid rgba(230, 221, 211, 0.85);
+    }
+
+    .logo {
+      font-family: "Montserrat", sans-serif;
+      font-weight: 800;
+      font-size: 1.9rem;
+      letter-spacing: 0.02em;
+      color: var(--primary);
+    }
+
+    .topbar-note {
+      color: var(--muted);
+      font-size: 0.98rem;
+      text-align: right;
+    }
+
+    .content {
+      display: grid;
+      grid-template-columns: 1.08fr 0.92fr;
+      gap: 44px;
+      padding: 54px 28px 34px;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+      background:
+        radial-gradient(circle at 82% 12%, rgba(200, 106, 44, 0.08), transparent 18%),
+        radial-gradient(circle at 68% 72%, rgba(23, 74, 90, 0.06), transparent 26%);
+    }
+
+    .content::after {
+      content: "";
+      position: absolute;
+      right: -120px;
+      bottom: -140px;
+      width: 380px;
+      height: 380px;
+      border-radius: 50%;
+      background: rgba(23, 74, 90, 0.05);
+      pointer-events: none;
+    }
+
+    .copy {
+      position: relative;
+      z-index: 1;
+    }
+
+    .eyebrow {
+      display: inline-block;
+      margin-bottom: 18px;
+      color: var(--accent-dark);
+      font-weight: 700;
+      font-size: 1rem;
+    }
+
+    h1, h2, h3 {
+      margin: 0;
+      font-family: "Montserrat", sans-serif;
+      line-height: 1.12;
+      color: #1d3440;
+    }
+
+    h1 {
+      font-size: clamp(2.5rem, 5vw, 4.6rem);
+      letter-spacing: -0.03em;
+      max-width: 10ch;
+    }
+
+    p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 1.08rem;
+    }
+
+    .lead {
+      margin-top: 22px;
+      max-width: 39rem;
+      font-size: 1.18rem;
+    }
+
+    .status-box {
+      margin-top: 30px;
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 16px;
+      border-radius: 14px;
+      background: rgba(23, 74, 90, 0.07);
+      border: 1px solid rgba(23, 74, 90, 0.08);
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    .status-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 0 6px rgba(200, 106, 44, 0.12);
+      flex: 0 0 auto;
+    }
+
+    .info-grid {
+      display: grid;
+      gap: 18px;
+      margin-top: 34px;
+      max-width: 44rem;
+    }
+
+    .info-card {
+      background: linear-gradient(180deg, rgba(255,255,255,0.96), rgba(249,245,239,0.95));
+      border: 1px solid rgba(230, 221, 211, 0.95);
+      border-radius: 22px;
+      padding: 22px;
+      box-shadow: 0 10px 24px rgba(24, 36, 44, 0.04);
+    }
+
+    .info-card h3 {
+      font-size: 1.12rem;
+    }
+
+    .info-card p {
+      margin-top: 10px;
+      font-size: 1rem;
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-top: 30px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 52px;
+      padding: 0 22px;
+      border-radius: 14px;
+      font-weight: 700;
+      transition: background 0.2s ease, transform 0.2s ease, border-color 0.2s ease;
+      border: 1px solid transparent;
+    }
+
+    .btn:hover { transform: translateY(-1px); }
+
+    .btn-primary {
+      background: var(--primary);
+      color: #fff;
+      box-shadow: 0 10px 22px rgba(23, 74, 90, 0.16);
+    }
+
+    .btn-primary:hover { background: var(--primary-dark); }
+
+    .btn-secondary {
+      background: rgba(255,255,255,0.82);
+      color: var(--text);
+      border-color: var(--border);
+    }
+
+    .visual {
+      position: relative;
+      z-index: 1;
+    }
+
+    .device {
+      position: relative;
+      width: 100%;
+      max-width: 560px;
+      margin-left: auto;
+      background: #2b2f33;
+      border-radius: 22px 22px 14px 14px;
+      padding: 12px 12px 0;
+      box-shadow: 0 28px 55px rgba(24, 36, 44, 0.18);
+    }
+
+    .device::after {
+      content: "";
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      bottom: -18px;
+      width: 112%;
+      height: 18px;
+      background: linear-gradient(180deg, #d7d4d2, #bdb7b3);
+      border-radius: 0 0 18px 18px;
+      box-shadow: 0 14px 24px rgba(24, 36, 44, 0.12);
+    }
+
+    .screen {
+      overflow: hidden;
+      border-radius: 14px 14px 0 0;
+      background: linear-gradient(180deg, #f7f3ef 0%, #fdfbf8 100%);
+      border: 1px solid rgba(255,255,255,0.52);
+    }
+
+    .screen-topbar {
+      height: 34px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 0 14px;
+      background: #ece8e3;
+      border-bottom: 1px solid #ddd4cb;
+    }
+
+    .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: #d3c6ba;
+    }
+
+    .maintenance-view {
+      min-height: 390px;
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+    }
+
+    .maintenance-main {
+      position: relative;
+      padding: 28px;
+      background: linear-gradient(180deg, var(--primary) 0%, var(--primary-dark) 100%);
+      color: #fff;
+      overflow: hidden;
+    }
+
+    .maintenance-main::after {
+      content: "";
+      position: absolute;
+      right: -44px;
+      bottom: -60px;
+      width: 210px;
+      height: 210px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.06);
+      pointer-events: none;
+    }
+
+    .maintenance-brand {
+      font-family: "Montserrat", sans-serif;
+      font-size: 1rem;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      opacity: 0.92;
+    }
+
+    .maintenance-main h2 {
+      margin-top: 42px;
+      color: #fff;
+      font-size: 2rem;
+      max-width: 9ch;
+    }
+
+    .maintenance-main p {
+      margin-top: 16px;
+      color: rgba(255,255,255,0.82);
+      font-size: 0.96rem;
+      max-width: 23ch;
+    }
+
+    .maintenance-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 24px;
+      padding: 10px 14px;
+      border-radius: 12px;
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.12);
+      font-size: 0.92rem;
+      font-weight: 700;
+    }
+
+    .maintenance-side {
+      background: #f7f2ed;
+      padding: 26px 20px;
+      display: grid;
+      align-content: center;
+      gap: 14px;
+    }
+
+    .mini-card {
+      background: rgba(255,255,255,0.96);
+      border: 1px solid #ede5dc;
+      border-radius: 16px;
+      padding: 14px 14px 12px;
+      box-shadow: 0 14px 28px rgba(28, 44, 53, 0.08);
+    }
+
+    .mini-card strong {
+      display: block;
+      color: var(--text);
+      font-size: 0.95rem;
+      margin-bottom: 10px;
+    }
+
+    .line,
+    .line-light {
+      height: 8px;
+      border-radius: 999px;
+      background: #cbd5db;
+      margin-bottom: 8px;
+    }
+
+    .line-light {
+      background: #e1e7ea;
+      height: 7px;
+      width: 78%;
+      margin-bottom: 0;
+    }
+
+    .footer {
+      padding: 24px 28px 28px;
+      border-top: 1px solid rgba(230, 221, 211, 0.85);
+      display: flex;
+      justify-content: space-between;
+      gap: 14px;
+      flex-wrap: wrap;
+      color: var(--muted);
+      font-size: 0.96rem;
+      background: rgba(255,253,250,0.86);
+    }
+
+    @media (max-width: 980px) {
+      .content {
+        grid-template-columns: 1fr;
+        gap: 28px;
+      }
+
+      .visual {
+        order: -1;
+      }
+
+      h1 { max-width: none; }
+    }
+
+    @media (max-width: 720px) {
+      body { padding: 12px; }
+
+      .topbar,
+      .content,
+      .footer { padding-left: 18px; padding-right: 18px; }
+
+      .topbar {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .topbar-note { text-align: left; }
+
+      .maintenance-view {
+        grid-template-columns: 1fr;
+      }
+
+      .device::after {
+        width: 104%;
+      }
+
+      .actions {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="shell">
+    <div class="topbar">
+      <div class="logo">SHWD</div>
+      <div class="topbar-note">Webdesign und Betreuung für Kleve und Umgebung</div>
+    </div>
+
+    <section class="content">
+      <div class="copy">
+        <div class="eyebrow">Wartungsseite</div>
+        <h1>Diese Website ist im Moment kurz nicht erreichbar.</h1>
+        <p class="lead">Wir arbeiten gerade an Inhalten oder technischen Anpassungen. Bitte versuchen Sie es später noch einmal. Vielen Dank für Ihr Verständnis.</p>
+
+        <div class="status-box">
+          <span class="status-dot" aria-hidden="true"></span>
+          <span>Die Seite wird derzeit überarbeitet.</span>
+        </div>
+
+        <div class="info-grid">
+          <article class="info-card">
+            <h3>Was passiert gerade?</h3>
+            <p>Wir pflegen Inhalte ein, überarbeiten einzelne Bereiche oder führen technische Anpassungen durch, damit der Internetauftritt ruhig, verständlich und zuverlässig bleibt.</p>
+          </article>
+          <article class="info-card">
+            <h3>Wann geht es weiter?</h3>
+            <p>Bitte schauen Sie in Kürze noch einmal vorbei. Falls Sie uns direkt erreichen möchten, können Sie uns selbstverständlich weiterhin kontaktieren.</p>
+          </article>
+        </div>
+
+        <div class="actions">
+          <a class="btn btn-primary" href="mailto:support@shwd.de">E-Mail schreiben</a>
+          <a class="btn btn-secondary" href="tel:+492821970343">Telefonisch melden</a>
+        </div>
+      </div>
+
+      <div class="visual" aria-hidden="true">
+        <div class="device">
+          <div class="screen">
+            <div class="screen-topbar">
+              <span class="dot"></span>
+              <span class="dot"></span>
+              <span class="dot"></span>
+            </div>
+            <div class="maintenance-view">
+              <div class="maintenance-main">
+                <div class="maintenance-brand">SHWD</div>
+                <h2>Wir sind gleich wieder da.</h2>
+                <p>Die Website wird aktuell überarbeitet und steht in Kürze wieder vollständig zur Verfügung.</p>
+                <div class="maintenance-badge">Wartung läuft</div>
+              </div>
+              <div class="maintenance-side">
+                <div class="mini-card">
+                  <strong>Inhalte</strong>
+                  <div class="line"></div>
+                  <div class="line-light"></div>
+                </div>
+                <div class="mini-card">
+                  <strong>Technik</strong>
+                  <div class="line"></div>
+                  <div class="line-light"></div>
+                </div>
+                <div class="mini-card">
+                  <strong>Feinschliff</strong>
+                  <div class="line"></div>
+                  <div class="line-light"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <span>© SHWD – Webdesign und Betreuung für Kleve und Umgebung</span>
+      <span>Wartungsseite</span>
+    </footer>
+  </main>
+</body>
+</html>
