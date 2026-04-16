@@ -84,3 +84,25 @@ Eine mögliche Struktur der Website:
 │   ├── fonts/
 │   └── js/
 └── README.md
+
+## Einrichtung
+
+1. Dateien auf den Webspace hochladen
+2. `.env` prüfen und ggf. anpassen
+3. sicherstellen, dass `support@shwd.de` existiert
+4. testen, ob `mail()` auf dem Zielsystem funktioniert
+5. Kontaktformular live prüfen
+
+## Hinweise zum Kontaktformular
+
+Die V1 nutzt standardmäßig `mail()` und ist damit für eine schlanke IONOS-Installation gut geeignet.
+
+In der `.env` sind bereits zusätzliche Mail-Variablen für einen späteren SMTP-Ausbau vorbereitet. Diese werden in der V1 noch nicht aktiv verwendet.
+
+## Vor dem Livegang prüfen
+
+- Impressum und Datenschutz noch einmal gegen das tatsächliche Hosting prüfen
+- Telefonnummer und Kontaktangaben final abstimmen
+- Kontaktformular mit realer Testnachricht testen
+- Wartungsseite separat abrufbar halten
+- `.env` niemals öffentlich versionieren
